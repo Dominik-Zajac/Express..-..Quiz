@@ -1,10 +1,15 @@
 const express = require('express');
+const path = require('path');
 
 const app = express();
 
 app.listen(3000, () => {
     console.log('Servers is listening at http://localhost:3000/');
 });
+
+app.use(express.static(
+    path.join(__dirname, 'public'),
+));
 
 let goodAnswers = 0;
 let callToAFriendUsed = false;
@@ -16,7 +21,7 @@ const questions = [{
     answers: ['C++', 'Fortran', 'JavaScript', 'Java'],
     correctAnswer: 2,
 }, {
-    question: 'JCzy programowanie jest ciekawe?',
+    question: 'Czy programowanie jest ciekawe?',
     answers: ['Nie wiem', 'Oczywiście, że tak', 'Nie', 'Tak'],
     correctAnswer: 3,
 }, {
@@ -25,7 +30,7 @@ const questions = [{
     correctAnswer: 0,
 }];
 
-app.get('question', (req, res) => {
+app.get('/question', (req, res) => {
 
     if (goodAnswers === questions.length) {
         res.json({
