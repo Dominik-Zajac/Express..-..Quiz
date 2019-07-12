@@ -20,3 +20,22 @@ function showNextQuestion() {
 };
 
 showNextQuestion();
+
+function sendAnswer(answerIndex) {
+    fetch(`/answer/${answerIndex}`, {
+            method: 'POST',
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+        });
+};
+
+const buttonsAnswer = document.querySelectorAll('button');
+
+for (const button of buttonsAnswer) {
+    button.addEventListener('click', (event) => {
+        const answerIndex = event.target.dataset.answer;
+        sendAnswer(answerIndex);
+    });
+};
