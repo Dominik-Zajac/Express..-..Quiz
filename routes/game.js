@@ -1,8 +1,6 @@
 function gameRoutes(app) {
     let goodAnswers = 0;
-    let callToAFriendUsed = false;
-    let questionToTheCrowdUsed = false;
-    let halfOnHalfUsed = false;
+    let isGameOver = false;
 
     const questions = [{
         question: 'Jaki jest najlepszy język programowania?',
@@ -24,6 +22,12 @@ function gameRoutes(app) {
             res.json({
                 winner: true,
             });
+
+        } else if (isGameOver) {
+            res.json({
+                loser: true
+            });
+
         } else {
             const nextQuestion = questions[goodAnswers];
 
@@ -41,13 +45,27 @@ function gameRoutes(app) {
 
     app.post('/answer/:index', (req, res) => {
 
+        if (isGameOver) {
+            res.json({
+                loser: true,
+            });
+        }
+
         const {
             index
         } = req.params;
         const question = questions[goodAnswers];
+        const isGoodAnswer = question.correctAnswer === Number(index);
+
+        if (isGoodAnswer) {
+            goodAnswers++;
+        } else {
+            isGameOver = true;
+        }
 
         res.json({
-            correct: question.correctAnswer === Number(index),
+            correct: isGoodAnswer,
+            goodAnswers
         })
     });
 };
