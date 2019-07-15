@@ -1,7 +1,3 @@
-import {
-    Http2SecureServer
-} from 'http2';
-
 const question = document.querySelector('#question');
 const gameBoard = document.querySelector('#game-board');
 const subtitle = document.querySelector('h2');
@@ -56,7 +52,7 @@ function sendAnswer(answerIndex) {
         });
 };
 
-const buttonsAnswer = document.querySelectorAll('button');
+const buttonsAnswer = document.querySelectorAll('.answer-btn');
 
 for (const button of buttonsAnswer) {
     button.addEventListener('click', (event) => {
@@ -65,12 +61,20 @@ for (const button of buttonsAnswer) {
     });
 };
 
+const tipDiv = document.querySelector('#tip');
+
+function handleFriendsAnswer(data) {
+    tipDiv.innerText = data.text;
+}
+
 function callToAFriend() {
     fetch('/help/friend', {
             method: 'GET'
         })
         .then(res => res.json())
         .then(data => {
-            console.log(data)
+            handleFriendsAnswer(data);
         });
 };
+
+document.querySelector('#callToAFriend').addEventListener('click', callToAFriend);

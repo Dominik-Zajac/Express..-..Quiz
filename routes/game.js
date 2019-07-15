@@ -1,6 +1,9 @@
 function gameRoutes(app) {
     let goodAnswers = 0;
     let isGameOver = false;
+    let callToAFriendUsed = false;
+    let questionToTheCrowUsed = false;
+    let halfOnHalfUsed = false;
 
     const questions = [{
         question: 'Jaki jest najlepszy język programowania?',
@@ -67,6 +70,27 @@ function gameRoutes(app) {
             correct: isGoodAnswer,
             goodAnswers
         })
+    });
+
+    app.get('/help/friend', (req, res) => {
+
+        if (callToAFriendUsed) {
+            return res.json({
+                text: 'To kolo ratunkowe bylo juz wykorzystane.'
+            });
+        }
+
+        callToAFriendUsed = true;
+
+        const doesFriendKnowAnswer = Math.random() < 0.5;
+
+        const question = questions[goodAnswers];
+
+        res.json({
+            text: doesFriendKnowAnswer ? `Hmm, wydaje mi sie ze odpowiedz to ${question.answers[question
+                .correctAnswer]}` : 'Hmm, no nie wiem',
+        });
+
     });
 };
 
