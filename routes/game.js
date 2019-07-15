@@ -69,7 +69,7 @@ function gameRoutes(app) {
         res.json({
             correct: isGoodAnswer,
             goodAnswers
-        })
+        });
     });
 
     app.get('/help/friend', (req, res) => {
@@ -142,7 +142,7 @@ function gameRoutes(app) {
 
         res.json({
             chart,
-        })
+        });
     });
 };
 

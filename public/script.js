@@ -1,6 +1,9 @@
 const question = document.querySelector('#question');
 const gameBoard = document.querySelector('#game-board');
 const subtitle = document.querySelector('h2');
+const buttonsAnswer = document.querySelectorAll('.answer-btn');
+const goodAnswersSpan = document.querySelector('#good-answers');
+const tipDiv = document.querySelector('#tip');
 
 function fillQuestionElements(data) {
     if (data.winner === true) {
@@ -35,8 +38,6 @@ function showNextQuestion() {
 
 showNextQuestion();
 
-const goodAnswersSpan = document.querySelector('#good-answers');
-
 function handleAnswerFeedback(data) {
     goodAnswersSpan.innerText = data.goodAnswers;
     showNextQuestion();
@@ -52,7 +53,6 @@ function sendAnswer(answerIndex) {
         });
 };
 
-const buttonsAnswer = document.querySelectorAll('.answer-btn');
 
 for (const button of buttonsAnswer) {
     button.addEventListener('click', (event) => {
@@ -61,11 +61,10 @@ for (const button of buttonsAnswer) {
     });
 };
 
-const tipDiv = document.querySelector('#tip');
 
 function handleFriendsAnswer(data) {
     tipDiv.innerText = data.text;
-}
+};
 
 function callToAFriend() {
     fetch('/help/friend', {
@@ -111,7 +110,7 @@ function handleCrowdAnswer(data) {
             buttonsAnswer[index].innerText = `${buttonsAnswer[index].innerText}: ${percent}%`;
         })
     }
-}
+};
 
 function questionToTheCrowd() {
     fetch('/help/crowd', {
