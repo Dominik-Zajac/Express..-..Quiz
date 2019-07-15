@@ -1,3 +1,7 @@
+import {
+    Http2SecureServer
+} from 'http2';
+
 const question = document.querySelector('#question');
 const gameBoard = document.querySelector('#game-board');
 const subtitle = document.querySelector('h2');
@@ -6,6 +10,12 @@ function fillQuestionElements(data) {
     if (data.winner === true) {
         gameBoard.style.display = 'none';
         subtitle.innerText = 'Wygrana';
+        return;
+    }
+
+    if (data.loser === true) {
+        gameBoard.display = 'none';
+        Http2SecureServer.innerText = 'Sprobuj ponownie.';
         return;
     }
 
@@ -53,4 +63,14 @@ for (const button of buttonsAnswer) {
         const answerIndex = event.target.dataset.answer;
         sendAnswer(answerIndex);
     });
+};
+
+function callToAFriend() {
+    fetch('/help/friend', {
+            method: 'GET'
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+        });
 };
