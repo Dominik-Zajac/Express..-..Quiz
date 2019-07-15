@@ -104,7 +104,13 @@ function halfOnHalf() {
 document.querySelector('#halfOnHalf').addEventListener('click', halfOnHalf);
 
 function handleCrowdAnswer(data) {
-
+    if (typeof data.text === 'string') {
+        tipDiv.innerText = data.text;
+    } else {
+        data.chart.forEach((percent, index) => {
+            buttonsAnswer[index].innerText = `${buttonsAnswer[index].innerText}: ${percent}%`;
+        })
+    }
 }
 
 function questionToTheCrowd() {

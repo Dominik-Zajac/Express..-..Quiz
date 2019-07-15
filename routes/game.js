@@ -114,26 +114,35 @@ function gameRoutes(app) {
         });
     });
 
-    app.get('/help/half', (req, res) => {
-        if (halfOnHalfUsed) {
+    app.get('/help/crowd', (req, res) => {
+
+        if (questionToTheCrowUsed) {
             return res.json({
                 text: 'To kolo ratunkowe bylo juz wykorzystane.'
             });
         }
 
-        halfOnHalfUsed = true;
+        questionToTheCrowUsed = true;
+
+        const chart = [10, 20, 30, 40];
+
+        for (let i = chart.length - 1; i > 0; i--) {
+            const change = Math.floor(Math.random() * 20 - 10);
+
+            chart[i] += change;
+            chart[i - 1] -= change;
+        }
 
         const question = questions[goodAnswers];
+        const {
+            correctAnswer
+        } = question;
 
-        const answersCopy = question.answers.filter((item, index) => (
-            index !== question.correctAnswer
-        ));
-
-        answersCopy.splice(~~(Math.random() * answersCopy.length), 1);
+        [chart[3], chart[correctAnswer]] = [chart[correctAnswer], chart[3]];
 
         res.json({
-            answersToRemove: answersCopy,
-        });
+            chart,
+        })
     });
 };
 
