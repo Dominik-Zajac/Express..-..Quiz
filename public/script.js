@@ -61,7 +61,7 @@ for (const button of buttonsAnswer) {
     });
 };
 
-
+// Call to a friends
 function handleFriendsAnswer(data) {
     tipDiv.innerText = data.text;
 };
@@ -78,6 +78,7 @@ function callToAFriend() {
 
 document.querySelector('#callToAFriend').addEventListener('click', callToAFriend);
 
+// Half on half answer
 function handleHalfOnHalfAnswer(data) {
     if (typeof data.text === 'string') {
         tipDiv.innerText = data.text;
@@ -102,6 +103,7 @@ function halfOnHalf() {
 
 document.querySelector('#halfOnHalf').addEventListener('click', halfOnHalf);
 
+// Question to the crowd
 function handleCrowdAnswer(data) {
     if (typeof data.text === 'string') {
         tipDiv.innerText = data.text;
