@@ -89,7 +89,7 @@ function handleHalfOnHalfAnswer(data) {
             }
         }
     }
-}
+};
 
 function halfOnHalf() {
     fetch('/help/half', {
@@ -102,3 +102,19 @@ function halfOnHalf() {
 };
 
 document.querySelector('#halfOnHalf').addEventListener('click', halfOnHalf);
+
+function handleCrowdAnswer(data) {
+
+}
+
+function questionToTheCrowd() {
+    fetch('/help/crowd', {
+            method: 'GET'
+        })
+        .then(res => res.json())
+        .then(data => {
+            handleCrowdAnswer(data);
+        });
+};
+
+document.querySelector('#questionToTheCrowd').addEventListener('click', questionToTheCrowd);

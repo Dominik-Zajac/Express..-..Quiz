@@ -113,6 +113,28 @@ function gameRoutes(app) {
             answersToRemove: answersCopy,
         });
     });
+
+    app.get('/help/half', (req, res) => {
+        if (halfOnHalfUsed) {
+            return res.json({
+                text: 'To kolo ratunkowe bylo juz wykorzystane.'
+            });
+        }
+
+        halfOnHalfUsed = true;
+
+        const question = questions[goodAnswers];
+
+        const answersCopy = question.answers.filter((item, index) => (
+            index !== question.correctAnswer
+        ));
+
+        answersCopy.splice(~~(Math.random() * answersCopy.length), 1);
+
+        res.json({
+            answersToRemove: answersCopy,
+        });
+    });
 };
 
 module.exports = gameRoutes;
